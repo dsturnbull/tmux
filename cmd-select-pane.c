@@ -1,5 +1,4 @@
-/* $Id: cmd-select-pane.c,v 1.10 2009/07/30 20:45:20 tcunha Exp $ */
-
+/* $Id: cmd-select-pane.c,v 1.12 2010/01/05 23:52:37 tcunha Exp $ */
 /*
  * Copyright (c) 2009 Nicholas Marriott <nicm@users.sourceforge.net>
  *
