@@ -152,7 +152,7 @@ window_pane *wp_next(
 			}
 
 	if (ARRAY_LENGTH(&panes) > 0)
-		mergesort(ARRAY_DATA(&panes), ARRAY_LENGTH(&panes),
+		qsort(ARRAY_DATA(&panes), ARRAY_LENGTH(&panes),
 				sizeof(struct window_pane *), sort);
 
 	if (ARRAY_LENGTH(&panes) > 0)
