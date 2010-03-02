@@ -1,4 +1,5 @@
 /* $Id: cmd-select-pane.c,v 1.12 2010/01/05 23:52:37 tcunha Exp $ */
+
 /*
  * Copyright (c) 2009 Nicholas Marriott <nicm@users.sourceforge.net>
  *
@@ -68,9 +69,15 @@ cmd_select_pane_exec(struct cmd *self, struct cmd_ctx *ctx)
 	struct	window_pane		*wp;
 	struct	window_pane		*tar_wp;
 	struct	cmd_target_data	*data = self->data;
+<<<<<<< HEAD
 	int		dir;
 	bool	(*filt)(struct window_pane *our, struct window_pane *their);
 	int		(*sort)(const void *a, const void *b);
+=======
+	int	dir;
+	bool	(*filt)(struct window_pane *our, struct window_pane *their);
+	int	(*sort)(const void *a, const void *b);
+>>>>>>> 1.1_directional
 
 	if ((wl = cmd_find_pane(ctx, data->target, NULL, &wp)) == NULL)
 		return (-1);
@@ -120,12 +127,21 @@ cmd_select_pane_exec(struct cmd *self, struct cmd_ctx *ctx)
 // wp_next
 struct
 window_pane *wp_next(
+<<<<<<< HEAD
 	struct window_pane *cur_wp, int dir,
 	bool (*filt)(struct window_pane *, struct window_pane *),
 	int (*sort)(const void *a, const void *b))
 {
 	struct window_pane *wp;
 	struct window_pane *tar_wp;
+=======
+	struct	window_pane *cur_wp, int dir,
+	bool	(*filt)(struct window_pane *, struct window_pane *),
+	int	(*sort)(const void *a, const void *b))
+{
+	struct	window_pane *wp;
+	struct	window_pane *tar_wp;
+>>>>>>> 1.1_directional
 
 	ARRAY_INIT(&panes);
 	TAILQ_FOREACH(wp, &cur_wp->window->panes, entry)
@@ -137,6 +153,7 @@ window_pane *wp_next(
 		TAILQ_FOREACH(wp, &cur_wp->window->panes, entry)
 			switch(dir) {
 				case WP_L:
+<<<<<<< HEAD
 					if (wp->xoff < cur_wp->xoff) ARRAY_ADD(&panes, wp);
 					break;
 				case WP_R:
@@ -147,11 +164,31 @@ window_pane *wp_next(
 					break;
 				case WP_D:
 					if (wp->yoff > cur_wp->yoff) ARRAY_ADD(&panes, wp);
+=======
+					if (wp->xoff < cur_wp->xoff)
+						ARRAY_ADD(&panes, wp);
+					break;
+				case WP_R:
+					if (wp->xoff > cur_wp->xoff)
+						ARRAY_ADD(&panes, wp);
+					break;
+				case WP_U:
+					if (wp->yoff < cur_wp->yoff)
+						ARRAY_ADD(&panes, wp);
+					break;
+				case WP_D:
+					if (wp->yoff > cur_wp->yoff)
+						ARRAY_ADD(&panes, wp);
+>>>>>>> 1.1_directional
 					break;
 			}
 
 	if (ARRAY_LENGTH(&panes) > 0)
+<<<<<<< HEAD
 		mergesort(ARRAY_DATA(&panes), ARRAY_LENGTH(&panes),
+=======
+		qsort(ARRAY_DATA(&panes), ARRAY_LENGTH(&panes),
+>>>>>>> 1.1_directional
 				sizeof(struct window_pane *), sort);
 
 	if (ARRAY_LENGTH(&panes) > 0)
@@ -200,9 +237,7 @@ wp_next_u_filt(struct window_pane *our, struct window_pane *their)
 int
 wp_next_u_sort(const void *a, const void *b)
 {
-	int r;
-	r = wp_compare(a, b, false, false);
-	return -(90 - r);
+	return wp_compare(a, b, false, false);
 }
 
 // wp_next_d_file
@@ -226,16 +261,15 @@ wp_compare(const void *a, const void *b, bool xoff, bool sign)
 	struct window_pane **ra = (struct window_pane **)a;
 	struct window_pane **rb = (struct window_pane **)b;
 
-	if (xoff) {
+	if (xoff)
 		if (sign)
 			return (*ra)->xoff > (*rb)->xoff;
 		else
 			return (*ra)->xoff < (*rb)->xoff;
-	} else {
+	else
 		if (sign)
 			return (*ra)->yoff > (*rb)->yoff;
 		else
 			return (*ra)->yoff < (*rb)->yoff;
-	}
 }
 
