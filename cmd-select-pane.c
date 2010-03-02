@@ -69,9 +69,9 @@ cmd_select_pane_exec(struct cmd *self, struct cmd_ctx *ctx)
 	struct	window_pane		*wp;
 	struct	window_pane		*tar_wp;
 	struct	cmd_target_data	*data = self->data;
-	int		dir;
+	int	dir;
 	bool	(*filt)(struct window_pane *our, struct window_pane *their);
-	int		(*sort)(const void *a, const void *b);
+	int	(*sort)(const void *a, const void *b);
 
 	if ((wl = cmd_find_pane(ctx, data->target, NULL, &wp)) == NULL)
 		return (-1);
@@ -121,12 +121,12 @@ cmd_select_pane_exec(struct cmd *self, struct cmd_ctx *ctx)
 // wp_next
 struct
 window_pane *wp_next(
-	struct window_pane *cur_wp, int dir,
-	bool (*filt)(struct window_pane *, struct window_pane *),
-	int (*sort)(const void *a, const void *b))
+	struct	window_pane *cur_wp, int dir,
+	bool	(*filt)(struct window_pane *, struct window_pane *),
+	int	(*sort)(const void *a, const void *b))
 {
-	struct window_pane *wp;
-	struct window_pane *tar_wp;
+	struct	window_pane *wp;
+	struct	window_pane *tar_wp;
 
 	ARRAY_INIT(&panes);
 	TAILQ_FOREACH(wp, &cur_wp->window->panes, entry)
@@ -138,16 +138,20 @@ window_pane *wp_next(
 		TAILQ_FOREACH(wp, &cur_wp->window->panes, entry)
 			switch(dir) {
 				case WP_L:
-					if (wp->xoff < cur_wp->xoff) ARRAY_ADD(&panes, wp);
+					if (wp->xoff < cur_wp->xoff)
+						ARRAY_ADD(&panes, wp);
 					break;
 				case WP_R:
-					if (wp->xoff > cur_wp->xoff) ARRAY_ADD(&panes, wp);
+					if (wp->xoff > cur_wp->xoff)
+						ARRAY_ADD(&panes, wp);
 					break;
 				case WP_U:
-					if (wp->yoff < cur_wp->yoff) ARRAY_ADD(&panes, wp);
+					if (wp->yoff < cur_wp->yoff)
+						ARRAY_ADD(&panes, wp);
 					break;
 				case WP_D:
-					if (wp->yoff > cur_wp->yoff) ARRAY_ADD(&panes, wp);
+					if (wp->yoff > cur_wp->yoff)
+						ARRAY_ADD(&panes, wp);
 					break;
 			}
 
@@ -227,16 +231,15 @@ wp_compare(const void *a, const void *b, bool xoff, bool sign)
 	struct window_pane **ra = (struct window_pane **)a;
 	struct window_pane **rb = (struct window_pane **)b;
 
-	if (xoff) {
+	if (xoff)
 		if (sign)
 			return (*ra)->xoff > (*rb)->xoff;
 		else
 			return (*ra)->xoff < (*rb)->xoff;
-	} else {
+	else
 		if (sign)
 			return (*ra)->yoff > (*rb)->yoff;
 		else
 			return (*ra)->yoff < (*rb)->yoff;
-	}
 }
 
