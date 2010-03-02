@@ -205,9 +205,7 @@ wp_next_u_filt(struct window_pane *our, struct window_pane *their)
 int
 wp_next_u_sort(const void *a, const void *b)
 {
-	int r;
-	r = wp_compare(a, b, false, false);
-	return -(90 - r);
+	return wp_compare(a, b, false, false);
 }
 
 // wp_next_d_file
