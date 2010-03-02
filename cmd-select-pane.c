@@ -69,15 +69,9 @@ cmd_select_pane_exec(struct cmd *self, struct cmd_ctx *ctx)
 	struct	window_pane		*wp;
 	struct	window_pane		*tar_wp;
 	struct	cmd_target_data	*data = self->data;
-<<<<<<< HEAD
 	int		dir;
 	bool	(*filt)(struct window_pane *our, struct window_pane *their);
 	int		(*sort)(const void *a, const void *b);
-=======
-	int	dir;
-	bool	(*filt)(struct window_pane *our, struct window_pane *their);
-	int	(*sort)(const void *a, const void *b);
->>>>>>> 1.1_directional
 
 	if ((wl = cmd_find_pane(ctx, data->target, NULL, &wp)) == NULL)
 		return (-1);
@@ -127,21 +121,12 @@ cmd_select_pane_exec(struct cmd *self, struct cmd_ctx *ctx)
 // wp_next
 struct
 window_pane *wp_next(
-<<<<<<< HEAD
-	struct window_pane *cur_wp, int dir,
-	bool (*filt)(struct window_pane *, struct window_pane *),
-	int (*sort)(const void *a, const void *b))
-{
-	struct window_pane *wp;
-	struct window_pane *tar_wp;
-=======
 	struct	window_pane *cur_wp, int dir,
 	bool	(*filt)(struct window_pane *, struct window_pane *),
 	int	(*sort)(const void *a, const void *b))
 {
 	struct	window_pane *wp;
 	struct	window_pane *tar_wp;
->>>>>>> 1.1_directional
 
 	ARRAY_INIT(&panes);
 	TAILQ_FOREACH(wp, &cur_wp->window->panes, entry)
@@ -153,18 +138,6 @@ window_pane *wp_next(
 		TAILQ_FOREACH(wp, &cur_wp->window->panes, entry)
 			switch(dir) {
 				case WP_L:
-<<<<<<< HEAD
-					if (wp->xoff < cur_wp->xoff) ARRAY_ADD(&panes, wp);
-					break;
-				case WP_R:
-					if (wp->xoff > cur_wp->xoff) ARRAY_ADD(&panes, wp);
-					break;
-				case WP_U:
-					if (wp->yoff < cur_wp->yoff) ARRAY_ADD(&panes, wp);
-					break;
-				case WP_D:
-					if (wp->yoff > cur_wp->yoff) ARRAY_ADD(&panes, wp);
-=======
 					if (wp->xoff < cur_wp->xoff)
 						ARRAY_ADD(&panes, wp);
 					break;
@@ -179,16 +152,11 @@ window_pane *wp_next(
 				case WP_D:
 					if (wp->yoff > cur_wp->yoff)
 						ARRAY_ADD(&panes, wp);
->>>>>>> 1.1_directional
 					break;
 			}
 
 	if (ARRAY_LENGTH(&panes) > 0)
-<<<<<<< HEAD
-		mergesort(ARRAY_DATA(&panes), ARRAY_LENGTH(&panes),
-=======
 		qsort(ARRAY_DATA(&panes), ARRAY_LENGTH(&panes),
->>>>>>> 1.1_directional
 				sizeof(struct window_pane *), sort);
 
 	if (ARRAY_LENGTH(&panes) > 0)
