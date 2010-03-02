@@ -50,9 +50,9 @@ int wp_next_d_sort(const void *a, const void *b);
 
 const struct cmd_entry cmd_select_pane_entry = {
 	"select-pane", "selectp",
-	"[-LRDU] " CMD_TARGET_PANE_USAGE " [adjustment]",
+	"[-LRUD] " CMD_TARGET_PANE_USAGE " [adjustment]",
 	CMD_ARG01,
-	CMD_CHFLAG('D')|CMD_CHFLAG('L')|CMD_CHFLAG('R')|CMD_CHFLAG('U'),
+	"LRUD",
 	cmd_target_init,
 	cmd_target_parse,
 	cmd_select_pane_exec,
@@ -88,22 +88,22 @@ cmd_select_pane_exec(struct cmd *self, struct cmd_ctx *ctx)
 	}
 
 	// directions
-	if (data->chflags & (CMD_CHFLAG('L'))) {
+	if (cmd_check_flag(data->chflags, 'L')) {
 		filt	= wp_next_l_filt;
 		sort	= wp_next_l_sort;
 		dir		= WP_L;
 	}
-	if (data->chflags & (CMD_CHFLAG('R'))) {
+	if (cmd_check_flag(data->chflags, 'R')) {
 		filt	= wp_next_r_filt;
 		sort	= wp_next_r_sort;
 		dir=	WP_R;
 	}
-	if (data->chflags & (CMD_CHFLAG('U'))) {
+	if (cmd_check_flag(data->chflags, 'U')) {
 		filt	= wp_next_u_filt;
 		sort	= wp_next_u_sort;
 		dir		= WP_U;
 	}
-	if (data->chflags & (CMD_CHFLAG('D'))) {
+	if (cmd_check_flag(data->chflags, 'D')) {
 		filt	= wp_next_d_filt;
 		sort	= wp_next_d_sort;
 		dir		= WP_D;
